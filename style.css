@@ -1,0 +1,64 @@
+body {
+    background-image: url("images/background.png");
+    background-size: cover;
+}
+#name {
+    height: 200px;
+    width: 200px;
+}
+image {
+    margin: 5px;
+    border: 2px black solid;
+    border-radius: 5px;
+}
+.button {
+    position: inherit;
+    background-color: #395BA9;
+    color: #F9CC48;
+    height: 50px;
+    width: 200px;
+    text-align: center;
+    font-family: 'Pokemon Solid', sans-serif;
+    letter-spacing: 3px;
+    font-size: 25px;
+    border: 3px #202A5C solid;
+    text-shadow: -5px 0 #202a5c, -3px 3px 5px #202a5c, 1px 0 #202a5c, 0 -1px #202a5c;
+    margin: 0 10px 5px 10px;
+}
+.choix {
+    display: flex;
+    margin-left: 50px;
+    margin-top: 30px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: baseline;
+
+}
+.button:focus {
+    background-color: #1d305c;
+}
+.pkmncard {
+    background-color: rgb(227, 231, 233);
+    text-align: center;
+    width: 20%;
+    border:solid white 5px;
+    border-radius: 5px;
+    margin: 20px 0 20px 0;
+}
+.pkmnstat {
+    width: 250px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+#divDad {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#buttonSuppr {
+    margin: 5px;
+}
