@@ -10,20 +10,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <img id="name" src="images/image.png" alt="">
-    <div class="choix">
-        <select name= "Choisis" id="ajout" class="button">
-            <option value="first" class="dropdown-item">Arceus</option>
-            <option value="second" class="dropdown-item">Mewtwo</option>
-            <option value="third" class="dropdown-item">Regigigas</option>
-            <option value="fourth" class="dropdown-item">Giratina</option>
-            <option value="fifth" class="dropdown-item">Rayquaza</option>
-            <option value="sixth" class="dropdown-item">Lugia</option>
-        </select>
-        <button onclick="makeChoice()" class="button">Valider</button>
-    </div>
-    <div id="divDad">
-    </div>
-    <script type="text/javascript" src="index.js"></script>
+        <img id="name" src="images/image.png" alt="">
+        <div class="choix">
+            <select name= "Choisis" id="ajout" class="button">
+                <option value="Arceus" class="dropdown-item">Arceus</option>
+                <option value="Mewtwo" class="dropdown-item">Mewtwo</option>
+                <option value="Regigigas" class="dropdown-item">Regigigas</option>
+                <option value="Giratina" class="dropdown-item">Giratina</option>
+                <option value="Rayquaza" class="dropdown-item">Rayquaza</option>
+                <option value="Lugia" class="dropdown-item">Lugia</option>
+            </select>
+            <button onclick="makeChoice()" class="button">Valider</button>
+        </div>
+        <div class="columns">
+            <p><button id="btnvid" type="button" onclick="getStream('video')">Lancer caméra</button></p>
+            <div class="column">
+                <video id="vid" controls autoplay style="height:180px; width: 240px; display: none;"></video>
+            </div>
+        </div>
+        <div id="memory">
+            La RAM est de <b id="result">8</b> Go.
+        </div>
+        <div id="divDad">
+        </div>
+        <script type="text/javascript" src="index.js"></script>
 </body>
 </html>

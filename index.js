@@ -1,9 +1,9 @@
 let pokemon = document.getElementById("ajout");
 document.addEventListener("click", pokemon);
 let indexCard=0;
-function add(src, width, height, alt, srcStats) {
-    let divDad = document.getElementById("divDad");
-    let divImg = document.createElement('div');
+function add(src, width, height, alt, srcStats, isLocal) {
+    const divDad = document.getElementById("divDad");
+    const divImg = document.createElement('div');
     divDad.appendChild(divImg);
     const img = document.createElement("img");
 
@@ -18,44 +18,50 @@ function add(src, width, height, alt, srcStats) {
     divImg.setAttribute("class", "pkmncard");
     divImg.appendChild(img);
 
-    let nom = document.createElement("h2");
+    const nom = document.createElement("h2");
     nom.style.color = "#395BA9";
     divImg.appendChild(nom);
     nom.textContent = alt;
 
-    let stats = document.createElement("img");
+    const stats = document.createElement("img");
     divImg.appendChild(stats);
     stats.src = srcStats;
     stats.setAttribute("class", "pkmnstat");
     
-    let suppr = document.createElement("button");
+    const suppr = document.createElement("button");
     suppr.setAttribute("type", "button");
     suppr.setAttribute("id", "buttonSuppr" + "-" + indexCard);
-    suppr.textContent = "Exit";
+    suppr.setAttribute("class", "btnsuppr")
+    suppr.textContent = "Relâcher";
     divImg.appendChild(suppr);
-    suppr.addEventListener("click", supprime);
+    suppr.addEventListener("click", erase);
+    
+    // let edit = document.createElement("input");
+    // edit.setAttribute("type", "text");
+    // edit.setAttribute("id", "buttonEdit" + indexCard);
+    // edit.textContent = "Edit";
+    // divImg.appendChild(edit);
+    if (!isLocal){
+        pushToLocal(indexCard, alt);
+    }
     indexCard++;
-
-    let edit = document.createElement("input");
-    edit.setAttribute("type", "text");
-    edit.setAttribute("id", "buttonEdit" + indexCard);
-    edit.textContent = "Edit";
-    divImg.appendChild(edit);
-    pushToLocal(indexCard, alt);
 }
-const supprime = x => {
+const erase = x => {
     eraseCard(x.target.id);
 }
+
 function eraseCard(cardId) {
-    let cardChoice = document.getElementById(cardId);
-    let carte = cardId.split("-");
-    let index = carte[1];
+    const cardChoice = document.getElementById(cardId);
+    const card = cardId.split("-");
+    console.log(card);
+    const index = card[1];
     deleteInLocal(index);
+    console.log(cardId);
     cardChoice.parentNode.remove(cardChoice);
 }
 function pushToLocal(index, pkmnName)
 {
-    let data = [index, pkmnName];
+    const data = [index, pkmnName];
     localStorage.setItem("card"+ "-"+ index, JSON.stringify(data));
 }
 
@@ -63,50 +69,117 @@ function deleteInLocal(index)
 {
     localStorage.removeItem("card"+ "-"+ index);
 }
-function add_arceus() {
-    let source = "images/arceus.png";
-    let stat = "images/arceus_stats.png";
-    add( source , "200", "200", "Arceus", stat);
-}
-function add_mewtwo() {
-    let source = "images/mewtwo.jpeg";
-    let stat = "images/mewtwo_stats.png";
-    add( source , "200", "200", "Mewtwo", stat); 
-}
-function add_regigigas() {
-    let source = "images/regigigas.jpeg";
-    let stat = "images/regigigas_stats.png";
-    add( source , "200", "200", "Regigigas", stat); 
-}
-function add_giratina() {
-    let source = "images/giratina.jpeg";
-    let stat = "images/giratina_stats.png";
-    add( source , "200", "200", "Giratina", stat); 
-}
-function add_rayquaza() {
-    let source = "images/rayquaza.jpeg";
-    let stat = "images/rayquaza_stats.png";
-    add( source , "200", "200", "Rayquaza", stat);
-}
-function add_lugia() {
-    let source = "images/lugia.jpeg";
-    let stat = "images/lugia_stats.png";
-    add( source , "200", "200", "Lugia", stat); 
-}
-function makeChoice() {
-    let select = document.getElementById('ajout');
-    let value = select.options[select.selectedIndex].value;
-    if (value == "first") {
-        add_arceus()   
-    }   else if (value == "second") {
-            add_mewtwo()
-    }   else if (value == "third") {
-            add_regigigas()
-    }   else if (value == "fourth") {
-            add_giratina()
-    }   else if (value == "fifth") {
-            add_rayquaza()
-    }   else if (value == "sixth") {
-            add_lugia()
+function load(){
+    for (let i = 0; i < localStorage.length; i++){
+        const localData = localStorage.getItem(localStorage.key(i));
+        let noms = "";
+        for (let y = 0; y<localData.length; y++ ){
+            if (localData[y] != '[' && localData[y] != '"' && localData[y] != ']'){
+                noms += localData[y];
+            }
+        }
+        let tab = noms.split(",");
+        console.log(tab[1]);
+        makeChoice(tab[1])
     }
 }
+window.addEventListener("load", load());
+function addArceus(isLocal) {
+    const source = "images/arceus.png";
+    const stat = "images/arceus_stats.png";
+    add( source , "200", "200", "Arceus", stat, isLocal);
+}
+function addMewtwo(isLocal) {
+    const source = "images/mewtwo.jpeg";
+    const stat = "images/mewtwo_stats.png";
+    add( source , "200", "200", "Mewtwo", stat, isLocal); 
+}
+function addRegigigas(isLocal) {
+    const source = "images/regigigas.jpeg";
+    const stat = "images/regigigas_stats.png";
+    add( source , "200", "200", "Regigigas", stat, isLocal); 
+}
+function addGiratina(isLocal) {
+    const source = "images/giratina.jpeg";
+    const stat = "images/giratina_stats.png";
+    add( source , "200", "200", "Giratina", stat, isLocal); 
+}
+function addRayquaza(isLocal) {
+    const source = "images/rayquaza.jpeg";
+    const stat = "images/rayquaza_stats.png";
+    add( source , "200", "200", "Rayquaza", stat, isLocal);
+}
+function addLugia(isLocal) {
+    const source = "images/lugia.jpeg";
+    const stat = "images/lugia_stats.png";
+    add( source , "200", "200", "Lugia", stat, isLocal); 
+}
+function makeChoice(localNom = null) {
+    const select = document.getElementById('ajout');
+    let isLocal = false;
+    let value = null;
+    if (localNom == null){
+        value = select.options[select.selectedIndex].value;
+    }else {
+        value = localNom;
+        isLocal = true;
+    }
+    if (value === "Arceus") {
+        addArceus(isLocal)   
+    }   else if (value === "Mewtwo") {
+            addMewtwo(isLocal)
+    }   else if (value === "Regigigas") {
+            addRegigigas(isLocal)
+    }   else if (value === "Giratina") {
+            addGiratina(isLocal)
+    }   else if (value === "Rayquaza") {
+            addRayquaza(isLocal)
+    }   else if (value === "Lugia") {
+            addLugia(isLocal)
+    }
+}
+function getUserMedia(constraints) {
+    if (navigator.mediaDevices) {
+      return navigator.mediaDevices.getUserMedia(constraints);
+    }
+      
+    const legacyApi = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia || navigator.msGetUserMedia;
+      
+    if (legacyApi) {
+      return new Promise(function (resolve, reject) {
+        legacyApi.bind(navigator)(constraints, resolve, reject);
+      });
+    }
+}
+  
+function getStream (type) {
+    const vid = document.getElementById("vid");
+    if (!navigator.mediaDevices && !navigator.getUserMedia && !navigator.webkitGetUserMedia &&
+      !navigator.mozGetUserMedia && !navigator.msGetUserMedia) {
+      alert('User Media API not supported.');
+      return;
+    }
+    vid.style.display = "block";
+    const constraints = {};
+    constraints[type] = true;
+    
+    getUserMedia(constraints)
+      .then(function (stream) {
+        const mediaControl = document.querySelector(type);
+        
+        if ('srcObject' in mediaControl) {
+          mediaControl.srcObject = stream;
+        } else if (navigator.mozGetUserMedia) {
+          mediaControl.mozSrcObject = stream;
+        } else {
+          mediaControl.src = (window.URL || window.webkitURL).createObjectURL(stream);
+        }
+        
+        mediaControl.play();
+      })
+      .catch(function (err) {
+        alert('Error: ' + err);
+      })
+    }
+    document.getElementById('result').innerHTML = navigator.deviceMemory || '8'
