@@ -30,7 +30,7 @@ function add(src, width, height, alt, srcStats) {
     
     let suppr = document.createElement("button");
     suppr.setAttribute("type", "button");
-    suppr.setAttribute("id", "buttonSuppr" + indexCard);
+    suppr.setAttribute("id", "buttonSuppr" + "-" + indexCard);
     suppr.textContent = "Exit";
     divImg.appendChild(suppr);
     suppr.addEventListener("click", supprime);
@@ -41,15 +41,28 @@ function add(src, width, height, alt, srcStats) {
     edit.setAttribute("id", "buttonEdit" + indexCard);
     edit.textContent = "Edit";
     divImg.appendChild(edit);
+    pushToLocal(indexCard, alt);
 }
 const supprime = x => {
     eraseCard(x.target.id);
 }
 function eraseCard(cardId) {
     let cardChoice = document.getElementById(cardId);
+    let carte = cardId.split("-");
+    let index = carte[1];
+    deleteInLocal(index);
     cardChoice.parentNode.remove(cardChoice);
 }
- 
+function pushToLocal(index, pkmnName)
+{
+    let data = [index, pkmnName];
+    localStorage.setItem("card"+ "-"+ index, JSON.stringify(data));
+}
+
+function deleteInLocal(index)
+{
+    localStorage.removeItem("card"+ "-"+ index);
+}
 function add_arceus() {
     let source = "images/arceus.png";
     let stat = "images/arceus_stats.png";
